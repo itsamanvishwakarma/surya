@@ -1,3 +1,9 @@
+## Installation 
+Clone the repo and after that simply install the pip packge for that as it will also install all the required dependencies for that
+```
+pip install surya-ocr
+```
+
 ## how to use the surya-ocr package & get the text from a pdf file
 
 use the following command to run the OCR and the results will be saved in the final_results/{filename}
