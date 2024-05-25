@@ -1,5 +1,7 @@
-## Installation 
+## Installation
+
 Clone the repo and after that simply install the pip packge for that as it will also install all the required dependencies for that
+
 ```
 pip install surya-ocr
 ```

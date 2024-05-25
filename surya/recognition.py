@@ -1,6 +1,7 @@
 from typing import List
 import torch
 from PIL import Image
+from transformers import GenerationConfig
 
 from surya.postprocessing.math.latex import fix_math, contains_math
 from surya.postprocessing.text import truncate_repetitions
@@ -36,6 +37,7 @@ def batch_recognition(images: List, languages: List[List[str]], model, processor
         has_math = ["_math" in lang for lang in batch_langs]
         batch_images = images[i:i+batch_size]
         batch_images = [image.convert("RGB") for image in batch_images]
+
         model_inputs = processor(text=[""] * len(batch_langs), images=batch_images, lang=batch_langs)
 
         batch_pixel_values = model_inputs["pixel_values"]
@@ -52,6 +54,7 @@ def batch_recognition(images: List, languages: List[List[str]], model, processor
                 decoder_input_ids=batch_decoder_input,
                 decoder_langs=batch_langs,
                 eos_token_id=processor.tokenizer.eos_id,
+                pad_token_id=processor.tokenizer.pad_token_id,
                 max_new_tokens=settings.RECOGNITION_MAX_TOKENS,
                 output_scores=True,
                 return_dict_in_generate=True
